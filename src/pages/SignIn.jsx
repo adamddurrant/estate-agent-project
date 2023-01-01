@@ -30,7 +30,7 @@ export default function SignIn() {
         >
           <h1 className='text-3xl text-center mt-6 mb-3'>Sign in</h1>
           <p>
-            Please sign in securely with BRAND NAME to view your saved
+            Please sign in securely with the estate portal to view your saved
             properties.
           </p>
           <form className='flex flex-col justify-center w-full px-20'>
@@ -41,6 +41,7 @@ export default function SignIn() {
               onChange={onChange}
               placeholder='Email address'
               className='mb-4 mt-4 w-full px-4 py-2 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out'
+              required='required'
             />
             <div className='relative'>
               <input
@@ -50,6 +51,7 @@ export default function SignIn() {
                 onChange={onChange}
                 placeholder='Password'
                 className='mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out'
+                required='required'
               />
               {showPassword ? (
                 <AiFillEyeInvisible

@@ -3,6 +3,16 @@ import { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import OAuth from "../components/OAuth";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { db } from "../firebase";
+import { serverTimestamp, setDoc, doc } from "firebase/firestore";
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
@@ -12,6 +22,7 @@ export default function SignUp() {
     password: "",
   }); //initial state of form input
   const { name, email, password } = formData;
+  const navigate = useNavigate();
 
   function onChange(e) {
     //when text is inputted into form, update formData state
@@ -19,6 +30,39 @@ export default function SignUp() {
       ...prevState,
       [e.target.id]: e.target.value,
     }));
+  }
+
+  async function onSubmit(e) {
+    e.preventDefault();
+
+    try {
+      const auth = getAuth();
+      const userCredentials = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      updateProfile(auth.currentUser, {
+        displayName: name,
+      });
+
+      const user = userCredentials.user;
+      const formDataCopy = { ...formData };
+      delete formDataCopy.password;
+      formDataCopy.timestamp = serverTimestamp();
+
+      await setDoc(doc(db, "users", user.uid), formDataCopy);
+      toast.success("You're all signed up 🥳");
+      navigate("/");
+    } catch (error) {
+      if (error.message === "Firebase: Error (auth/email-already-in-use).") {
+        toast.error("The email address is already registered 🤷‍♂️");
+      } else {
+        console.log(error.message);
+        toast.error("Oops Registration failed, try again 😅");
+      }
+    }
   }
 
   return (
@@ -33,10 +77,11 @@ export default function SignUp() {
           id='col-right'
         >
           <h1 className='text-3xl text-center mt-6 mb-3'>Sign up</h1>
-          <p>
-            Sign un to get all the benefits of saving your favourite properties.
-          </p>
-          <form className='flex flex-col justify-center w-full px-20'>
+          <p>Sign up to get all the benefits of using the estate website.</p>
+          <form
+            className='flex flex-col justify-center w-full px-20'
+            onSubmit={onSubmit}
+          >
             <input
               type='text'
               id='name'
@@ -44,6 +89,7 @@ export default function SignUp() {
               onChange={onChange}
               placeholder='Full name'
               className='mt-4 w-full px-4 py-2 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out'
+              required='required'
             />
             <input
               type='email'
@@ -52,6 +98,7 @@ export default function SignUp() {
               onChange={onChange}
               placeholder='Email address'
               className='mb-4 mt-4 w-full px-4 py-2 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out'
+              required='required'
             />
             <div className='relative'>
               <input
@@ -61,6 +108,7 @@ export default function SignUp() {
                 onChange={onChange}
                 placeholder='Password'
                 className='mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out'
+                required='required'
               />
               {showPassword ? (
                 <AiFillEyeInvisible
@@ -81,7 +129,7 @@ export default function SignUp() {
                   to='/sign-in'
                   className='text-red-600 transition duration-200 ease-in-out hover:text-red-700 ml-1'
                 >
-                  Sign up
+                  Sign in
                 </Link>
               </p>
               <p>
@@ -97,7 +145,7 @@ export default function SignUp() {
               className='w-full bg-blue-600 text-white px-7 py-3 text-sm font-medium uppercase rounded shadow-md hover:bg-blue-700 transition duration-200 ease-in-out hover:shadow-lg active:bg-blue-800'
               type='submit'
             >
-              Sign in
+              Sign up
             </button>
             <div className='my-4 before:border-t flex before:flex-1 items-center before:border-grey-300  after:border-t  after:flex-1  after:border-grey-300'>
               <p className='text-center font-semibold mx-4'>OR</p>

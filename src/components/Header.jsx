@@ -13,16 +13,12 @@ export default function Header() {
   }
 
   return (
-    <div
-      className={`bg-white border-b shadow-sm sticky top-0 z-50 ${
-        pathMathRoute("/sign-in") && "hidden"
-      }`}
-    >
+    <div className='bg-white border-b shadow-sm sticky top-0 z-50'>
       <header className='flex justify-between items-center px-3 max-w-6xl mx-auto'>
         <div>
           <img
-            className='h-5 cursor-pointer'
-            src='../rdc-logo.svg'
+            className='h-10 w-full cursor-pointer'
+            src='../logo.svg'
             alt='logo'
             onClick={() => navigate("/")} //Go to home
           />

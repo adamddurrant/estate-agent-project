@@ -33,6 +33,7 @@ export default function ForgotPassword() {
               onChange={onChange}
               placeholder='Email address'
               className='mb-4 mt-4 w-full px-4 py-2 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out'
+              required='required'
             />
             <div className='flex justify-between whitespace-nowrap text-sm sm:text-lg'>
               <p className='mb-6'>
