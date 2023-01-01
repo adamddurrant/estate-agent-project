@@ -1,6 +1,8 @@
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import OAuth from "../components/OAuth";
 
 export default function ForgotPassword() {
@@ -8,6 +10,17 @@ export default function ForgotPassword() {
 
   function onChange(e) {
     setEmail(e.target.value);
+  }
+
+  async function onSubmit(e) {
+    e.preventDefault();
+    try {
+      const auth = getAuth();
+      await sendPasswordResetEmail(auth, email);
+      toast.success("Reset sent, check your inbox");
+    } catch (error) {
+      toast.error("Could not send password reset");
+    }
   }
 
   return (
@@ -25,7 +38,10 @@ export default function ForgotPassword() {
           <p>
             It happens to us all, get your password reset with the form below.
           </p>
-          <form className='flex flex-col justify-center w-full px-20'>
+          <form
+            onSubmit={onSubmit}
+            className='flex flex-col justify-center w-full px-20'
+          >
             <input
               type='email'
               id='email'
