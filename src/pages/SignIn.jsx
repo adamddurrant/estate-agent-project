@@ -1,20 +1,40 @@
 import React from "react";
 import { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
+import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
+import { toast } from "react-toastify";
 
 export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" }); //initial state of form input
   const { email, password } = formData;
-
+  const navigate = useNavigate();
   function onChange(e) {
     //when text is inputted into form, update formData state
     setFormData((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
     }));
+  }
+
+  async function onSubmit(e) {
+    e.preventDefault();
+    try {
+      const auth = getAuth();
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      if (userCredential.user) {
+        toast.success("You're signed in 👌");
+        navigate("/");
+      }
+    } catch (error) {
+      toast.error("Bad user credentials, try again 💪");
+    }
   }
 
   return (
@@ -33,7 +53,10 @@ export default function SignIn() {
             Please sign in securely with the estate portal to view your saved
             properties.
           </p>
-          <form className='flex flex-col justify-center w-full px-20'>
+          <form
+            onSubmit={onSubmit}
+            className='flex flex-col justify-center w-full px-20'
+          >
             <input
               type='email'
               id='email'
