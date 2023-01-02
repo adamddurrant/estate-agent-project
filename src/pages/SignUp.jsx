@@ -69,7 +69,7 @@ export default function SignUp() {
     <section>
       <div className='flex justify-center flex-wrap h-screen' id='container'>
         <div
-          className=' md:w-[55%] lg:w-[55%] bg-sign-in bg-cover'
+          className=' md:w-[55%] lg:w-[55%] bg-sign-up bg-cover bg-center'
           id='col-left'
         ></div>
         <div
@@ -77,9 +77,11 @@ export default function SignUp() {
           id='col-right'
         >
           <h1 className='text-3xl text-center mt-6 mb-3'>Sign up</h1>
-          <p>Sign up to get all the benefits of using the estate website.</p>
+          <p className='text-sm sm:text-lg mb-6 px-5 text-center'>
+            Sign up to get all the benefits of using the homely.io website.
+          </p>
           <form
-            className='flex flex-col justify-center w-full px-20'
+            className='flex flex-col justify-center w-full px-20 max-md:px-5 max-sm:px-5'
             onSubmit={onSubmit}
           >
             <input
@@ -122,8 +124,8 @@ export default function SignUp() {
                 />
               )}
             </div>
-            <div className='flex justify-between whitespace-nowrap text-sm sm:text-lg'>
-              <p className='mb-6'>
+            <div className='flex justify-between whitespace-nowrap text-sm sm:text-lg max-md:flex-col max-sm:flex-row text-center'>
+              <p className='mb-6 max-md:mb-0 max-sm:mb-6'>
                 Have an account?
                 <Link
                   to='/sign-in'
@@ -132,7 +134,7 @@ export default function SignUp() {
                   Sign in
                 </Link>
               </p>
-              <p>
+              <p className='max-md:mb-6'>
                 <Link
                   to='/forgot-password'
                   className='text-blue-600 transition duration-200 ease-in-out hover:text-blue-800'

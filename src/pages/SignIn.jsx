@@ -41,7 +41,7 @@ export default function SignIn() {
     <section>
       <div className='flex justify-center flex-wrap h-screen' id='container'>
         <div
-          className=' md:w-[55%] lg:w-[55%] bg-sign-in bg-cover'
+          className=' md:w-[55%] lg:w-[55%] bg-sign-in bg-cover bg-center'
           id='col-left'
         ></div>
         <div
@@ -49,13 +49,13 @@ export default function SignIn() {
           id='col-right'
         >
           <h1 className='text-3xl text-center mt-6 mb-3'>Sign in</h1>
-          <p>
-            Please sign in securely with the estate portal to view your saved
+          <p className='text-sm sm:text-lg mb-6 text-center max-sm:px-5'>
+            Please sign in securely with the homely.io portal to view your saved
             properties.
           </p>
           <form
             onSubmit={onSubmit}
-            className='flex flex-col justify-center w-full px-20'
+            className='flex flex-col justify-center w-full px-20 max-md:px-5 max-sm:px-5'
           >
             <input
               type='email'
@@ -88,8 +88,8 @@ export default function SignIn() {
                 />
               )}
             </div>
-            <div className='flex justify-between whitespace-nowrap text-sm sm:text-lg'>
-              <p className='mb-6'>
+            <div className='flex justify-between whitespace-nowrap text-sm sm:text-lg max-md:flex max-md:flex-col max-sm:flex-row text-center'>
+              <p className='mb-6 max-md:mb-0 max-sm:mb-6'>
                 Don't have an account?
                 <Link
                   to='/sign-up'
@@ -98,10 +98,10 @@ export default function SignIn() {
                   Register
                 </Link>
               </p>
-              <p>
+              <p className='md:mb-6'>
                 <Link
                   to='/forgot-password'
-                  className='text-blue-600 transition duration-200 ease-in-out hover:text-blue-800'
+                  className='text-blue-600 transition duration-200 ease-in-out  hover:text-blue-800 '
                 >
                   Forgot Password?
                 </Link>

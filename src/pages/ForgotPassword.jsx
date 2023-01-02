@@ -27,7 +27,7 @@ export default function ForgotPassword() {
     <section>
       <div className='flex justify-center flex-wrap h-screen' id='container'>
         <div
-          className=' md:w-[55%] lg:w-[55%] bg-sign-in bg-cover'
+          className=' md:w-[55%] lg:w-[55%] bg-forgot-pass bg-cover bg-center'
           id='col-left'
         ></div>
         <div
@@ -35,12 +35,12 @@ export default function ForgotPassword() {
           id='col-right'
         >
           <h1 className='text-3xl text-center mt-6 mb-3'>Forgot Password</h1>
-          <p>
+          <p className='text-sm sm:text-lg mb-6 w-[50%] md:w-full max-sm:w-full max-sm:px-5 text-center'>
             It happens to us all, get your password reset with the form below.
           </p>
           <form
             onSubmit={onSubmit}
-            className='flex flex-col justify-center w-full px-20'
+            className='flex flex-col justify-center w-full px-20 max-md:px-5 max-sm:px-5'
           >
             <input
               type='email'
@@ -51,8 +51,8 @@ export default function ForgotPassword() {
               className='mb-4 mt-4 w-full px-4 py-2 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out'
               required='required'
             />
-            <div className='flex justify-between whitespace-nowrap text-sm sm:text-lg'>
-              <p className='mb-6'>
+            <div className='flex max-md:flex-col max-sm:flex-row justify-between whitespace-nowrap text-sm sm:text-lg max-md:text-center'>
+              <p className='mb-6 max-md:mb-0 max-sm:mb-6'>
                 Don't have an account?
                 <Link
                   to='/sign-up'
@@ -61,7 +61,7 @@ export default function ForgotPassword() {
                   Register
                 </Link>
               </p>
-              <p>
+              <p className='md:mb-6'>
                 <Link
                   to='/sign-in'
                   className='text-blue-600 transition duration-200 ease-in-out hover:text-blue-800'
