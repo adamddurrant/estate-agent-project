@@ -27,7 +27,7 @@ export default function OAuth() {
         });
       }
       toast.success("You're all signed up 🥳");
-      navigate("/");
+      navigate("/profile");
     } catch (error) {
       toast.error("Oops, we couldn't authorise with Google");
     }
