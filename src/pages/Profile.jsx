@@ -51,10 +51,11 @@ export default function Profile() {
   return (
     <>
       <section className='max-w-6xl mx-auto flex justify-center items-center flex-col'>
-        <h1 className='text-3xl text-center my-6'>Homely Profile</h1>
+        <h1 className='text-3xl text-center my-6'>Your Homely Profile</h1>
         <div className='w-full md:w-[50%] mt-6 px-3'>
           <form>
             {/* Name input */}
+            <label>Username</label>
             <input
               type='text'
               id='name'
@@ -66,6 +67,7 @@ export default function Profile() {
               }`}
             />
             {/* eEmail input */}
+            <label>Email address</label>
             <input
               type='text'
               id='email'
