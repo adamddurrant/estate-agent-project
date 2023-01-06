@@ -63,32 +63,6 @@ export default function CreateListing() {
       toast.error("Maximum 6 images");
       return;
     }
-  }
-
-  async function onChange(e) {
-    let boolean = null;
-    if (e.target.value === "true") {
-      boolean = true;
-    }
-
-    if (e.target.value === "false") {
-      boolean = false;
-    }
-    // files
-    if (e.target.files) {
-      setFormData((prevState) => ({
-        ...prevState,
-        images: e.target.files,
-      }));
-    }
-    // text/boolean/number
-    if (!e.target.files) {
-      setFormData((prevState) => ({
-        ...prevState,
-        [e.target.id]: boolean ?? e.target.value,
-      }));
-    }
-
     async function storeImage(image) {
       return new Promise((resolve, reject) => {
         const storage = getStorage();
@@ -150,6 +124,32 @@ export default function CreateListing() {
     toast.success("Listing created");
     navigate(`/category/${formDataCopy.type}/${docRef.id}`);
   }
+
+  }
+
+  async function onChange(e) {
+    let boolean = null;
+    if (e.target.value === "true") {
+      boolean = true;
+    }
+
+    if (e.target.value === "false") {
+      boolean = false;
+    }
+    // files
+    if (e.target.files) {
+      setFormData((prevState) => ({
+        ...prevState,
+        images: e.target.files,
+      }));
+    }
+    // text/boolean/number
+    if (!e.target.files) {
+      setFormData((prevState) => ({
+        ...prevState,
+        [e.target.id]: boolean ?? e.target.value,
+      }));
+    }
 
   if (loading) {
     return <Loader />;
